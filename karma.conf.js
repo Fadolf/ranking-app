@@ -20,14 +20,11 @@ module.exports = function (karmaConfig) {
     frameworks: ['jasmine'],
 
     preprocessors: {
-      'modules/*/client/views/**/*.html': ['ng-html2js'],
-      'modules/core/client/app/config.js': ['coverage'],
-      'modules/core/client/app/init.js': ['coverage'],
-      'modules/*/client/*.js': ['coverage'],
-      'modules/*/client/config/*.js': ['coverage'],
-      'modules/*/client/controllers/*.js': ['coverage'],
-      'modules/*/client/directives/*.js': ['coverage'],
-      'modules/*/client/services/*.js': ['coverage']
+      //'modules/*/client/*.js': ['coverage'],
+      //'modules/*/client/config/*.js': ['coverage'],
+      //'modules/*/client/controllers/*.js': ['coverage'],
+      //'modules/*/client/directives/*.js': ['coverage'],
+      //'modules/*/client/services/*.js': ['coverage']
     },
 
     ngHtml2JsPreprocessor: {
@@ -39,8 +36,8 @@ module.exports = function (karmaConfig) {
     },
 
     // List of files / patterns to load in the browser
-    files: _.union(defaultAssets.client.lib.js, defaultAssets.client.lib.tests, defaultAssets.client.js, testAssets.tests.client, defaultAssets.client.views),
-
+    //files: _.union(defaultAssets.client.lib.js, defaultAssets.client.lib.tests, defaultAssets.client.js, testAssets.tests.client, defaultAssets.client.views),
+    //files: _.union(defaultAssets.client.lib.js, defaultAssets.client.lib.tests, defaultAssets.client.js, testAssets.tests.client, defaultAssets.client.views),
     // Test results reporter to use
     // Possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
     reporters: karmaReporters,
