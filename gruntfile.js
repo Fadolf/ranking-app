@@ -72,6 +72,13 @@ module.exports = function (grunt) {
         options: {
           livereload: true
         }
+      },
+      tests: {
+        files: testAssets.tests.server,
+        tasks: ['mochaTest'],
+        options: {
+          livereload: true
+        }
       }
     },
     nodemon: {
@@ -182,6 +189,18 @@ module.exports = function (grunt) {
         timeout: 10000
       }
     },
+    simplemocha: {
+      options: {
+        globals: ['should'],
+        timeout: 3000,
+        ignoreLeaks: false,
+        grep: '*-test',
+        ui: 'bdd',
+        reporter: 'tap'
+      },
+
+      all: { src: [testAssets.tests.server] }
+    },
     mocha_istanbul: {
       coverage: {
         src: testAssets.tests.server,
@@ -224,6 +243,7 @@ module.exports = function (grunt) {
         }
       }
     }
+    
   });
 
   grunt.event.on('coverage', function(lcovFileContents, done) {
@@ -240,7 +260,8 @@ module.exports = function (grunt) {
   // Load NPM tasks
   require('load-grunt-tasks')(grunt);
   grunt.loadNpmTasks('grunt-protractor-coverage');
-
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-simple-mocha');
   // Make sure upload directory exists
   grunt.task.registerTask('mkdir:upload', 'Task that makes sure upload directory exists.', function () {
     // Get the callback
@@ -307,11 +328,13 @@ module.exports = function (grunt) {
   grunt.registerTask('test:server', ['env:test', 'lint', 'server', 'mochaTest']);
   grunt.registerTask('test:client', ['env:test', 'lint', 'karma:unit']);
   grunt.registerTask('test:e2e', ['env:test', 'lint', 'dropdb', 'server', 'protractor']);
+
+
   // Run project coverage
   grunt.registerTask('coverage', ['env:test', 'lint', 'mocha_istanbul:coverage', 'karma:unit']);
 
   // Run the project in development mode
-  grunt.registerTask('default', ['env:dev', 'lint', 'mkdir:upload', 'copy:localConfig', 'concurrent:default']);
+  grunt.registerTask('default', ['env:dev', 'lint', 'mkdir:upload', 'copy:localConfig', 'concurrent:debug']);
 
   // Run the project in debug mode
   grunt.registerTask('debug', ['env:dev', 'lint', 'mkdir:upload', 'copy:localConfig', 'concurrent:debug']);
@@ -319,3 +342,4 @@ module.exports = function (grunt) {
   // Run the project in production mode
   grunt.registerTask('prod', ['build', 'env:prod', 'mkdir:upload', 'copy:localConfig', 'concurrent:default']);
 };
+
