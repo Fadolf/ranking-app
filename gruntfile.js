@@ -34,7 +34,7 @@ module.exports = function (grunt) {
       },
       serverJS: {
         files: _.union(defaultAssets.server.gruntConfig, defaultAssets.server.allJS),
-        tasks: ['jshint'],
+        tasks: ['jshint' , 'mochaTest'],
         options: {
           livereload: true
         }

@@ -11,7 +11,7 @@ var mongoose = require('mongoose'),
 EventSchema.methods.getTotalRating = function(){
   var totalRatings = 0;
 
-   _.each(this.ratings, function(item){
+  _.each(this.ratings, function(item){
     totalRatings += item.rating;
   });
 
